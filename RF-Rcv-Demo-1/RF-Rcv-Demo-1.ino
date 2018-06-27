@@ -47,11 +47,12 @@ void loop()
     // Check if received packet is correct size
     if (rf_driver.recv(buf, &buflen))
     {
-      
+    uint16_t merged = (buf[1] >> 8) | buf[0];
       // Message received with valid checksum
+     // long buf=buf*1L;
       Serial.print("Message Received: ");
-      
-      Serial.println((char *)buf);      
+     // write( uint8_t *buffer, size_t size);
+      Serial.println(*  (int*)buf );      
          
       //digitalWrite(13,HIGH);
     }

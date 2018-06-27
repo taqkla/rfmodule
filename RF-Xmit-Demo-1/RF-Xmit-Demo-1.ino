@@ -17,8 +17,8 @@
 
 // Create Amplitude Shift Keying Object
 RH_ASK rf_driver;
-char msg[2];
 
+uint8_t msg[2];
 void setup()
 {
    Serial.begin(9600);
@@ -31,25 +31,26 @@ void loop()
 {
 
      //Serial.println("random numbers");
-     int N = random(10,99);
-     srand (NULL);
+     int M = random(10,99);
+     uint16_t N = (uint16_t)M;
      Serial.println(N);
      //Serial.println(String(msg));
-     
-    //dtostrf(N,2,0,msg);
+     uint8_t msg[2]={N,(N >> 8)};
+      //dtostrf(N,2,0,msg);
+      
      //Serial.println(msg);
 //     if(Serial.available()>0)
 //     {
 //      int letter=Serial.read();
 //      Serial.println(letter);
 //     }
-    rf_driver.send((uint8_t *)N, 2);
+    rf_driver.send((uint8_t *)msg, 2);
     //Serial.println(N);
     //digitalWrite(13,HIGH);
     //rf_driver.waitPacketSent();
     Serial.println("sent");
-    Serial.println(N);
-    Serial.println(String(msg));
-    delay(1000);
+    //Serial.println(N);
+//    Serial.println(msg);
+    delay(100);
 
 }
